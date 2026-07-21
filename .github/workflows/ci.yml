@@ -27,12 +27,13 @@ jobs:
           context: ./backend
           push: ${{ vars.DEPLOY_ENABLED == 'true' }}
           tags: |
-            ${{ vars.DOCKERHUB_USER != '' && format('{0}/skillpulse-backend:latest', secrets.DOCKERHUB_USER) || 'skillpulse-backend:latest' }}
-            ${{ secrets.DOCKERHUB_PASSWORD!= '' && format('{0}/skillpulse-backend:{1}', secrets.DOCKERHUB_USER, github.sha) || format('skillpulse-backend:{0}', github.sha) }}
+            ${{ vars.DOCKERHUB_USER != '' && format('{0}/skillpulse-backend:latest', vars.DOCKERHUB_USER) || 'skillpulse-backend:latest' }}
+            ${{  vars.DOCKERHUB_USER!= '' && format('{0}/skillpulse-backend:{1}', vars.DOCKERHUB_USER, github.sha) || format('skillpulse-backend:{0}', github.sha) }}
 
       - name: Build and push frontend
         uses: docker/build-push-action@v7
         with:
           context: ./frontend
-          push: vars.DOCKERHUB_USER != '' && format('{0}/skillpulse-frontend:latest', secrets.DOCKERHUB_USER) || 'skillpulse-frontend:latest' }}
-            ${{ secrets.DOCKERHUB_PASSWORD != '' && format('{0}/skillpulse-frontend:{1}', secrets.DOCKERHUB_USER, github.sha) || format('skillpulse-frontend:{0}', github.sha) }}
+          push: ${{ vars.DEPLOY_ENABLED == 'true' }} 
+            ${{vars.DOCKERHUB_USER != '' && format('{0}/skillpulse-frontend:latest', vars.DOCKERHUB_USER) || 'skillpulse-frontend:latest' }}
+               ${{ vars.DOCKERHUB_USER != '' && format('{0}/skillpulse-frontend:{1}', vars.DOCKERHUB_USER, github.sha) || format('skillpulse-frontend:{0}', github.sha) }}
