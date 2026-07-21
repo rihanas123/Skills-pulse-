@@ -27,7 +27,7 @@ jobs:
           context: ./backend
           push: ${{ vars.DEPLOY_ENABLED == 'true' }}
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME != '' && format('{0}/skillpulse-backend:latest', secrets.DOCKERHUB_USER) || 'skillpulse-backend:latest' }}
+            ${{ secrets.DOCKER_USERNAME != '' && format('{0}/skillpulse-backend:latest', secrets.DOCKERHUB_USER) || 'skillpulse-backend:latest' }}
             ${{ secrets.DOCKERHUB_PASSWORD != '' && format('{0}/skillpulse-backend:{1}', secrets.DOCKERHUB_USER, github.sha) || format('skillpulse-backend:{0}', github.sha) }}
 
       - name: Build and push frontend
