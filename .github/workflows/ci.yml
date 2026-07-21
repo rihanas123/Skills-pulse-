@@ -25,7 +25,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./backend
-          push: ${{ vars.DEPLOY_ENABLED == 'true' }}
+          push: true
           tags: |
             ${{ vars.DOCKERHUB_USER }}/skillpulse-backend:latest
             ${{ vars.DOCKERHUB_USER }}/skillpulse-backend:${{ github.sha }}
@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
-          push: ${{ vars.DEPLOY_ENABLED == 'true' }}
+          push: true
           tags: |
             ${{ vars.DOCKERHUB_USER }}/skillpulse-frontend:latest
             ${{ vars.DOCKERHUB_USER }}/skillpulse-frontend:${{ github.sha }}
